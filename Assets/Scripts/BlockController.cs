@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class BlockController : MonoBehaviour
 {
-    [SerializeField]
-    GameObject block;
+    public    GameObject block;
 
     public void CreateABlock( Vector3 blockPosition ) 
     {
@@ -18,7 +17,7 @@ public class BlockController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+     
     }
 
     // Update is called once per frame
