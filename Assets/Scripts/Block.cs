@@ -30,7 +30,7 @@ public class Block : MonoBehaviour
     public void setBlockColor()
     {
         Debug.Log("hihihihihihihihihi");
-        blockRenderer.material.color = Color.red;
+       // blockRenderer.material.color = Color.red;
     }
 }
 

@@ -8,6 +8,8 @@ public class BlockController : MonoBehaviour
     List<Block> blocks;
     Dictionary<string, Block> blocksDict;
     public JSONReader json;
+    ChangeMaterialColor ChangeMaterialColor;
+
 
     public void CreateABlock(Vector3 blockPosition)
     {
@@ -20,12 +22,10 @@ public class BlockController : MonoBehaviour
 
             // Make a GameObject block
             GameObject go = Instantiate(block, blockPosition, Quaternion.identity);
-             
-            
-            
+
             // I don't know what this line is doing 
             Block newBlock = go.GetComponent<Block>();
-            newBlock.setBlockColor();
+           // newBlock.setBlockColor();
 
             // set position of this block
             newBlock.pos = blockPosition;
@@ -33,7 +33,9 @@ public class BlockController : MonoBehaviour
             // add black to Dictionary
             blocksDict.Add(key, newBlock);
             go.name = "block_" + key + json.getAName(blocksDict.Count - 1);
-            
+
+            ChangeMaterialColor.onBlockDraw();
+
         }
         else
         {
