@@ -6,6 +6,8 @@ public class MainController : MonoBehaviour
 {
 
     BlockController blockController;
+    ChangeMaterialColor changeMaterialColor;
+
     Vector3 nextPosition;
     List<Vector3> positions = new List<Vector3>();    // list for storing the positions of placed blocks
 
@@ -17,6 +19,8 @@ public class MainController : MonoBehaviour
 
         blockController = GetComponent<BlockController>();
 
+        changeMaterialColor = GetComponent<ChangeMaterialColor>();
+        Debug.Log(changeMaterialColor);
     }
 
     // Update is called once per frame
@@ -54,7 +58,6 @@ public class MainController : MonoBehaviour
                     nextPosition = rayOnPlanePosition.point;
                     // create a block at this position 
                     blockController.CreateABlock(nextPosition);
-
                 }
             }
 
@@ -99,7 +102,7 @@ public class MainController : MonoBehaviour
                     if ( gameObjectCollidedWith == "Plane")
                     {
                         // which object has the ray collided with
-                        Debug.Log(gameObjectCollidedWith);
+                      //  Debug.Log(gameObjectCollidedWith);
 
                         // draw cube at the position
                         blockController.CreateABlock(nextPosition);
@@ -110,7 +113,7 @@ public class MainController : MonoBehaviour
                     else
                     {
                         // which object has the ray collided with
-                        Debug.Log(gameObjectCollidedWith);
+                       // Debug.Log(gameObjectCollidedWith);
                         
                         // get cube position
                         Vector3 cubePosition = rayFromScreen.collider.gameObject.transform.position; 
@@ -120,7 +123,7 @@ public class MainController : MonoBehaviour
                         
                         // draw cube at the updated position
                         blockController.CreateABlock(cubePosition);
-
+                        changeMaterialColor.onBlockDraw();
                         // add position to positions list
                         positions.Add(cubePosition);
                     }

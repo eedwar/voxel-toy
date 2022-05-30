@@ -27,10 +27,6 @@ public class Block : MonoBehaviour
     public Material blockMat;
 
     public Renderer blockRenderer; 
-    public void setBlockColor()
-    {
-        Debug.Log("hihihihihihihihihi");
-       // blockRenderer.material.color = Color.red;
-    }
+ 
 }
 
