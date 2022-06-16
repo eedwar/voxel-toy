@@ -6,37 +6,46 @@ public class BlockController : MonoBehaviour
 {
     public GameObject block;
     List<Block> blocks;
+    List<Vector3> positions;
     Dictionary<string, Block> blocksDict;
     public JSONReader json;
+    public ChangeMaterialColor changeMaterialColor;
 
+    string lastPosition;
 
-    public void CreateABlock(Vector3 blockPosition)
+    public void CreateABlock(Vector3 blockPosition, Color blockColor)
     {
-       
+        
         string key = DictionaryKeyFromPosition(blockPosition);
 
         // if there is not a block already in this position, make one 
         if( !blocksDict.ContainsKey( key ))
         {
-           // Debug.Log(" creating a blockkkkkk ");
 
             // Make a GameObject block
             GameObject go = Instantiate(block, blockPosition, Quaternion.identity);
 
-            // I don't know what this line is doing 
+            // I don't know what this line is doing  >> get behaviours needed for this block 
             Block newBlock = go.GetComponent<Block>();
-           
+
+            changeMaterialColor = go.GetComponent<ChangeMaterialColor>();
+            if (changeMaterialColor == null)
+                Debug.Log("COMPUTER SAYS NO");
+
             // set position of this block
             newBlock.pos = blockPosition;
+
+            // set color of the block from color change script (random at the moment) 
+            changeMaterialColor.onBlockDraw(blockColor);
 
             // add block to Dictionary
             blocksDict.Add(key, newBlock);
             go.name = "block_" + key + json.getAName(blocksDict.Count - 1);
 
-           // changeMaterialColor = GetComponent<ChangeMaterialColor>();
-           // Debug.Log(changeMaterialColor);
-           // changeMaterialColor.onBlockDraw();
-
+            lastPosition = key;
+            positions.Add(blockPosition);
+           // positions.Item[0];
+            Debug.Log(blocksDict.Count);
         }
         else
         {
@@ -44,6 +53,20 @@ public class BlockController : MonoBehaviour
         }
 
 
+    }
+    
+    public void DestroyBlock()
+    {
+        Debug.Log(lastPosition);
+        int positionsLength = positions.Count;
+       // positions.Item[0];
+        string key = DictionaryKeyFromPosition(positions.Item[positionsLength]);
+        Block lastBlock;
+        bool isLastBlock = blocksDict.TryGetValue(lastPosition, out lastBlock);
+        if (isLastBlock)
+        {
+            Destroy(lastBlock);
+        }
     }
 
     string DictionaryKeyFromPosition( Vector3 blockPosition )

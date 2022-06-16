@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8540039303401064039}
   - component: {fileID: 1719356947657473494}
   - component: {fileID: 6780743620175297500}
+  - component: {fileID: -6363100964591944533}
   m_Layer: 0
   m_Name: Block
   m_TagString: Untagged
@@ -66,12 +67,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ceb636569b94ba4fa18dca962d89dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorArr:
-  - {r: 1, g: 0.95686275, b: 0, a: 0}
-  - {r: 1, g: 0, b: 0.5450525, a: 0}
-  - {r: 0.37640238, g: 0, b: 1, a: 0}
-  Speed: 1
-  Offset: 3.75
+--- !u!114 &-6363100964591944533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2393325583880901292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbbebc01bfe08b54c884d73519c50829, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 8022072358427128921, guid: 2d710228a562c0245bff4812a08f03ad, type: 3}
+  buttonRef: 0
 --- !u!1 &4638216376914931117
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,6 +189,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ceb636569b94ba4fa18dca962d89dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorArr: []
-  Speed: 1
-  Offset: 0

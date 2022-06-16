@@ -12,7 +12,7 @@ public class JSONReader : MonoBehaviour
         BlockNames namesInJson = JsonUtility.FromJson<BlockNames>(jsonFile.text);
 
         Name name = namesInJson.blockNames[i];
-        Debug.Log(name.name);
+        // Debug.Log(name.name);
         return name.name;
         /*
         foreach( Name name in namesInJson.blockNames )

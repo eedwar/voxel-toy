@@ -6,27 +6,40 @@ public class MainController : MonoBehaviour
 {
 
     BlockController blockController;
-    ChangeMaterialColor changeMaterialColor;
+    UIController uiController;
 
     Vector3 nextPosition;
     List<Vector3> positions = new List<Vector3>();    // list for storing the positions of placed blocks
 
 
+    // store current color
+    [SerializeField]
+    private Color currentColor;
 
     // Start is called before the first frame update
     void Start()
     {
 
         blockController = GetComponent<BlockController>();
+        uiController = GetComponent<UIController>();
 
-        changeMaterialColor = GetComponent<ChangeMaterialColor>();
-        Debug.Log(changeMaterialColor);
+    }
+
+    // set currentColor  value 
+    public void SetCurrentColor(Color newColor)
+    {
+
+        currentColor = newColor;
+        uiController.showCurrentColorUI(currentColor);
+
     }
 
     // Update is called once per frame
     void Update()
     {
+      
 
+   
         // if a touch has happened 
         if (Input.touchCount > 0)
         {
@@ -57,7 +70,7 @@ public class MainController : MonoBehaviour
                     // set position to collision point 
                     nextPosition = rayOnPlanePosition.point;
                     // create a block at this position 
-                    blockController.CreateABlock(nextPosition);
+                    blockController.CreateABlock(nextPosition, currentColor);
                 }
             }
 
@@ -98,14 +111,14 @@ public class MainController : MonoBehaviour
                     nextPosition.y = Mathf.Round(nextPosition.y);
                     nextPosition.z = Mathf.Round(nextPosition.z);
 
-                    Debug.Log("position : " + nextPosition);
+                   //  Debug.Log("position : " + nextPosition);
                     if ( gameObjectCollidedWith == "Plane")
                     {
                         // which object has the ray collided with
                       //  Debug.Log(gameObjectCollidedWith);
 
                         // draw cube at the position
-                        blockController.CreateABlock(nextPosition);
+                        blockController.CreateABlock(nextPosition, currentColor);
 
                         // add position to positions list
                         positions.Add(nextPosition);
@@ -122,8 +135,8 @@ public class MainController : MonoBehaviour
                         cubePosition.y += blockController.transform.localScale.y  * .5f;
                         
                         // draw cube at the updated position
-                        blockController.CreateABlock(cubePosition);
-                        changeMaterialColor.onBlockDraw();
+                        blockController.CreateABlock(cubePosition, currentColor);
+                     
                         // add position to positions list
                         positions.Add(cubePosition);
                     }
