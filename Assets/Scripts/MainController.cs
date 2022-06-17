@@ -122,12 +122,14 @@ public class MainController : MonoBehaviour
 
                         // add position to positions list
                         positions.Add(nextPosition);
+                        Debug.Log(nextPosition);
                     } 
                     else
                     {
                         // which object has the ray collided with
-                       // Debug.Log(gameObjectCollidedWith);
-                        
+                        // Debug.Log(gameObjectCollidedWith);
+
+                        Debug.Log("main controller else statement");
                         // get cube position
                         Vector3 cubePosition = rayFromScreen.collider.gameObject.transform.position; 
                        
@@ -139,14 +141,24 @@ public class MainController : MonoBehaviour
                      
                         // add position to positions list
                         positions.Add(cubePosition);
+                        Debug.Log(cubePosition);
                     }
                 }
 
-
+                
             }
 
         }
 
+    }
+    public void Undo()
+    {
+        int positionsLength = positions.Count;
+        Debug.Log("positions length is  : " + positionsLength);
+        Vector3 lastBlockPosition = positions[positionsLength - 1];
+        Debug.Log("last block position is : " + lastBlockPosition);
+        blockController.DestroyBlock(lastBlockPosition);
+        positions.Remove(lastBlockPosition);
     }
 }
   

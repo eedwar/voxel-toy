@@ -42,10 +42,6 @@ public class BlockController : MonoBehaviour
             blocksDict.Add(key, newBlock);
             go.name = "block_" + key + json.getAName(blocksDict.Count - 1);
 
-            lastPosition = key;
-            positions.Add(blockPosition);
-           // positions.Item[0];
-            Debug.Log(blocksDict.Count);
         }
         else
         {
@@ -55,20 +51,21 @@ public class BlockController : MonoBehaviour
 
     }
     
-    public void DestroyBlock()
+    public void DestroyBlock(Vector3 lastPosition)
     {
-        Debug.Log(lastPosition);
-        int positionsLength = positions.Count;
-       // positions.Item[0];
-        string key = DictionaryKeyFromPosition(positions.Item[positionsLength]);
+        string key = DictionaryKeyFromPosition(lastPosition);
         Block lastBlock;
-        bool isLastBlock = blocksDict.TryGetValue(lastPosition, out lastBlock);
+        bool isLastBlock = blocksDict.TryGetValue(key, out lastBlock);
+        
         if (isLastBlock)
         {
-            Destroy(lastBlock);
+            Debug.Log("destroying block : " + lastBlock);
+            Destroy(lastBlock.gameObject);      // How to remove a GameObject via a component that is attached to it
+            blocksDict.Remove(key);
+            Debug.Log(" removing key :  " + key);
         }
     }
-
+    
     string DictionaryKeyFromPosition( Vector3 blockPosition )
     {
 
