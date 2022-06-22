@@ -8,7 +8,7 @@ public class MouseInputController : InputController
     Vector2Int screen;      // screen width & height
     float mousePositionOnRotateStart;
 
-    // Events
+    // Events  >> these have the same names as the delegates 
     public static event MoveInputHandler onMoveInput;
     public static event RotateInputHandler onRotateInput;
     public static event ZoomInputHandler onZoomInput;
@@ -40,7 +40,7 @@ public class MouseInputController : InputController
         //movement 
         if (mousePos.y > screen.y * 0.85f)
         {
-            onMoveInput?.Invoke(Vector3.forward);
+            onMoveInput?.Invoke(Vector3.forward);       // ?.Invoke means that only invoke the event if onMoveInput is not null 
         }
         else if (mousePos.y < screen.y * 0.15f)
         {

@@ -13,7 +13,7 @@ public class ButtonController : MonoBehaviour
     private Color buttonColor;
 
 
-    // This is called on click, 
+    // This is called on click of each of the colors in the color picker
     public void SelectedButton()
     {
 

@@ -25,14 +25,7 @@ public class MainController : MonoBehaviour
 
     }
 
-    // set currentColor  value 
-    public void SetCurrentColor(Color newColor)
-    {
-
-        currentColor = newColor;
-        uiController.showCurrentColorUI(currentColor);
-
-    }
+   
 
     // Update is called once per frame
     void Update()
@@ -102,34 +95,29 @@ public class MainController : MonoBehaviour
                 {
                     // set position to collision point 
                     nextPosition = rayFromScreen.point;
+                    // store collision object
                     string gameObjectCollidedWith = rayFromScreen.collider.gameObject.name;
 
 
-                    // Debug.Log("position : " + nextPosition );
-
+                    // round position to work on the 'grid'
                     nextPosition.x = Mathf.Round(nextPosition.x);
                     nextPosition.y = Mathf.Round(nextPosition.y);
                     nextPosition.z = Mathf.Round(nextPosition.z);
 
-                   //  Debug.Log("position : " + nextPosition);
+                   //  determine whether collision was with the plane or a block
                     if ( gameObjectCollidedWith == "Plane")
                     {
-                        // which object has the ray collided with
-                      //  Debug.Log(gameObjectCollidedWith);
 
                         // draw cube at the position
                         blockController.CreateABlock(nextPosition, currentColor);
 
                         // add position to positions list
                         positions.Add(nextPosition);
-                        Debug.Log(nextPosition);
-                    } 
-                    else
-                    {
-                        // which object has the ray collided with
-                        // Debug.Log(gameObjectCollidedWith);
 
-                        Debug.Log("main controller else statement");
+                    } 
+                    else    // collision was with a block therefore edit position to stack blocks 
+                    {
+
                         // get cube position
                         Vector3 cubePosition = rayFromScreen.collider.gameObject.transform.position; 
                        
@@ -141,7 +129,7 @@ public class MainController : MonoBehaviour
                      
                         // add position to positions list
                         positions.Add(cubePosition);
-                        Debug.Log(cubePosition);
+
                     }
                 }
 
@@ -151,13 +139,26 @@ public class MainController : MonoBehaviour
         }
 
     }
+
+    // set currentColor value for next blocks - called by button controller (I think, path seems a bit circular...)
+    public void SetCurrentColor(Color newColor)
+    {
+
+        currentColor = newColor;
+        uiController.showCurrentColorUI(currentColor);
+
+    }
+
+    // undo block place
     public void Undo()
     {
+        // get position value of the last placed block from positions List
         int positionsLength = positions.Count;
-        Debug.Log("positions length is  : " + positionsLength);
         Vector3 lastBlockPosition = positions[positionsLength - 1];
-        Debug.Log("last block position is : " + lastBlockPosition);
+
+        // within block controller destroy the block at this latest position
         blockController.DestroyBlock(lastBlockPosition);
+        // remove this position from positions List 
         positions.Remove(lastBlockPosition);
     }
 }

@@ -16,7 +16,7 @@ public class ChangeMaterialColor : MonoBehaviour
     {
         // do I make these each time?
         _propertyBlock = new MaterialPropertyBlock();
-        _renderer = GetComponentInChildren<Renderer>();
+        _renderer = GetComponentInChildren<Renderer>();     // who are the children?
 
 
         _renderer.GetPropertyBlock(_propertyBlock);

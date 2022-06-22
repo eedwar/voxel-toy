@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// seems very empty 
 public class Block : MonoBehaviour
 {
     [SerializeField]

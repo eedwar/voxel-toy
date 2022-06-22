@@ -46,6 +46,9 @@ public class CameraController : MonoBehaviour
 
     private void OnEnable()
     {
+        // this is subscribing to these events
+
+        // when the onMoveInput event ( which is in either of the input Controller classes ) is fired do the UpdateFrameMove function 
         KeyboardInputController.onMoveInput += UpdateFrameMove;
         KeyboardInputController.onRotateInput += UpdateFrameRotate;
         KeyboardInputController.onZoomInput += UpdateFrameZoom;
@@ -55,6 +58,7 @@ public class CameraController : MonoBehaviour
     }
     private void OnDisable()
     {
+        // this is unsubscribing to the events ( i.e stop listening ) 
         KeyboardInputController.onMoveInput -= UpdateFrameMove;
         KeyboardInputController.onRotateInput -= UpdateFrameRotate;
         KeyboardInputController.onZoomInput -= UpdateFrameZoom;

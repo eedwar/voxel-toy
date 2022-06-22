@@ -13,12 +13,23 @@ public class BlockController : MonoBehaviour
 
     string lastPosition;
 
+
+    void Start()
+    {
+        blocks = new List<Block>();
+        // init a dictionary for storing the blocks 
+        blocksDict = new Dictionary<string, Block>();
+    }
+
+
+
+
     public void CreateABlock(Vector3 blockPosition, Color blockColor)
     {
         
         string key = DictionaryKeyFromPosition(blockPosition);
 
-        // if there is not a block already in this position, make one 
+        // if there is not a block already in this position in th dictionary, generate a block and store data in dictionary 
         if( !blocksDict.ContainsKey( key ))
         {
 
@@ -35,11 +46,13 @@ public class BlockController : MonoBehaviour
             // set position of this block
             newBlock.pos = blockPosition;
 
-            // set color of the block from color change script (random at the moment) 
+            // set color of the block from color change script 
             changeMaterialColor.onBlockDraw(blockColor);
 
             // add block to Dictionary
             blocksDict.Add(key, newBlock);
+
+            // name block from json doc ( just some unnecessary fun )
             go.name = "block_" + key + json.getAName(blocksDict.Count - 1);
 
         }
@@ -51,8 +64,12 @@ public class BlockController : MonoBehaviour
 
     }
     
+    // called on Undo Button click via main controller 
     public void DestroyBlock(Vector3 lastPosition)
     {
+        // if the passed position is in the dictionary at that key
+        // get the game object and destroy it to remove from the scene
+
         string key = DictionaryKeyFromPosition(lastPosition);
         Block lastBlock;
         bool isLastBlock = blocksDict.TryGetValue(key, out lastBlock);
@@ -66,6 +83,7 @@ public class BlockController : MonoBehaviour
         }
     }
     
+    // parse block position into a string
     string DictionaryKeyFromPosition( Vector3 blockPosition )
     {
 
@@ -77,6 +95,7 @@ public class BlockController : MonoBehaviour
 
     }
 
+    // return the block at given position using blocks Dictionary 
     Block GetBlockAtGridPosition( Vector3 blockPosition )
     {
 
@@ -97,19 +116,7 @@ public class BlockController : MonoBehaviour
 
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        blocks = new List<Block>();
-        blocksDict = new Dictionary<string, Block>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+   // this baffles me ... is it actually usedddddd???????
     void blockNeighbours(Block newBlock)
     {
 

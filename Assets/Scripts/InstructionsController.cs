@@ -12,10 +12,9 @@ public class InstructionsController : MonoBehaviour
     [SerializeField]
     RectTransform undoMinimiseIns;
 
-    // Start is called before the first frame update
+    // tweening animations for the text instructions - this with the timings doesn't feel like the best way to do this - 
     void Start()
     {
-        Debug.Log("InstructionsController");
         LeanTween.alphaText(blockPlaceIns, 255, 2.2f).setEaseInOutQuart().setOnComplete(showColorInstruction);
       
     }
